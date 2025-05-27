@@ -32,9 +32,9 @@ export function SignInForm() {
                 className="space-y-8"
                 >
                     <CardHeader>
-                    <CardTitle>Cadastre-se.</CardTitle>
+                    <CardTitle>Login</CardTitle>
                     <CardDescription>
-                        Crie uma conta para continuar.
+                        Faça login para continuar.
                     </CardDescription>
                     </CardHeader>
 
@@ -62,7 +62,7 @@ export function SignInForm() {
                         <FormItem>
                             <FormLabel>Senha</FormLabel>
                             <FormControl>
-                            <Input placeholder="Crie uma senha (min 8 caracteres)" {...field} />
+                            <Input placeholder="Insira sua senha" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -71,7 +71,7 @@ export function SignInForm() {
                     </CardContent>
 
                     <CardFooter>
-                    <Button type="submit" className="w-full">Criar conta</Button>
+                    <Button type="submit" className="w-full">Login</Button>
                     </CardFooter>
 
                 </form>
