@@ -5,6 +5,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const loginSchema = z.object({
     email: z.string().trim().min(1, {message: "E-mail é obrigatório"}).email({message: "E-mail inválido"}),
@@ -12,6 +16,8 @@ const loginSchema = z.object({
 })
 
 export function SignInForm() {
+    const router = useRouter()
+
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -20,8 +26,18 @@ export function SignInForm() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof loginSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof loginSchema>) {
+        await authClient.signIn.email({
+            email: values.email,
+            password: values.password,
+        }, {
+            onSuccess: () => {
+                router.push("/dashboard");
+            },
+            onError: () => {
+               toast.error("E-mail ou senha inválidos.")
+            }
+        })
     }
 
     return(
@@ -71,7 +87,13 @@ export function SignInForm() {
                     </CardContent>
 
                     <CardFooter>
-                    <Button type="submit" className="w-full">Login</Button>
+                        <Button type="submit" className="w-full">
+                            {
+                            form.formState.isSubmitting ? (
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin"/>
+                            ) : "Login"
+                            }
+                        </Button>
                     </CardFooter>
 
                 </form>
