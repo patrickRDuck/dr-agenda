@@ -1,3 +1,5 @@
+"use client"
+
 import { Form, FormControl, FormField, FormItem, FormMessage, FormLabel } from "@/components/ui/form";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
@@ -78,7 +80,7 @@ export function SignInForm() {
                         <FormItem>
                             <FormLabel>Senha</FormLabel>
                             <FormControl>
-                            <Input placeholder="Insira sua senha" {...field} />
+                            <Input type="password" placeholder="Insira sua senha" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
