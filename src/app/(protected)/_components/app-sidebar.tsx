@@ -20,6 +20,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 // Menu items.
 const items = [
@@ -47,6 +48,7 @@ const items = [
 
 export function AppSidebar() {
   const route = useRouter()
+  const session = authClient.useSession()
 
   const handleSignOut = async () => {
     await authClient.signOut({
@@ -90,7 +92,19 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button>Clinica</Button>
+                <SidebarMenuButton size="lg">
+                  <Avatar>
+                    <AvatarFallback>P</AvatarFallback>
+                  </Avatar>
+                  <div className="mx-2">
+                    <p className="text-sm">
+                        {session.data?.clinic.name}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                        {session.data?.user.email}
+                    </p>
+                  </div>
+                </SidebarMenuButton>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent>
