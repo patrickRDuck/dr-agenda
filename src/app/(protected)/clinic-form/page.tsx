@@ -1,13 +1,11 @@
-import { Button } from "@/components/ui/button"
 import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { ClinicForm } from "./components/form"
+import { ClinicForm } from "./_components/form"
 
 export default function ClinicFormPage() {
 
