@@ -17,7 +17,6 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
 import { usePathname, useRouter } from "next/navigation"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -99,7 +98,7 @@ export function AppSidebar() {
                   </Avatar>
                   <div className="mx-2">
                     <p className="text-sm">
-                        {session.data?.clinic.name}
+                        {session.data?.user.clinic?.name}
                     </p>
                     <p className="text-sm text-muted-foreground">
                         {session.data?.user.email}
