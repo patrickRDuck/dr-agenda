@@ -96,6 +96,7 @@ export function AppSidebar() {
                   <Avatar>
                     <AvatarFallback>P</AvatarFallback>
                   </Avatar>
+                  
                   <div className="mx-2">
                     <p className="text-sm">
                         {session.data?.user.clinic?.name}
