@@ -13,7 +13,7 @@ export function AddDoctorButton() {
 
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button>
+                <Button className="cursor-pointer">
                     <Plus />
                     Adicionar médico
                 </Button>

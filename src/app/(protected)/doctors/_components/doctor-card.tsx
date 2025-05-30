@@ -59,8 +59,7 @@ export function DoctorCard({ doctor }: DoctorCardProps) {
             <Separator />
 
             <CardContent className="flex flex-col gap-2">
-                <Badge 
-                 variant="outline">
+                <Badge variant="outline">
                     <CalendarIcon className="mr-1" />
                     {availability.from.format("dddd").replace("-feira", "")} a {availability.to.format("dddd").replace("-feira", "")}
                 </Badge>
