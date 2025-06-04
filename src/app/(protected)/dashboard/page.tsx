@@ -5,9 +5,10 @@ import { PageActions, PageContainer, PageContent, PageDescription, PageHeader, P
 import { DatePicker } from "./_components/date-picker"
 import { db } from "@/db"
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema"
-import { and, count, eq, gte, lte, sum } from "drizzle-orm"
+import { and, count, eq, gte, lte, sql, sum } from "drizzle-orm"
 import { StatsCards } from "./_components/stats-card"
 import dayjs from "dayjs"
+import { AppointmentsChart } from "./_components/appointments-chart"
 
 interface DashboardPageProps {
     searchParams: Promise<{
@@ -87,6 +88,26 @@ export default async function DashboardPage({searchParams}: DashboardPageProps) 
         .then(res => res[0]),
     ]);
 
+    const chartStartDate = dayjs().subtract(10, "days").startOf("day").toDate()
+    const chartEndtDate = dayjs().add(10, "days").endOf("day").toDate()
+
+    const dailyAppointmentsData = await db
+    .select({
+        date: sql<string>`DATE(${appointmentsTable.date})`.as("date"),
+        appointments: count(appointmentsTable.id),
+        revenue: sql<number>`COALESCE(SUM(${appointmentsTable.appointmentPriceInCents}), 0)`.as("revenue")
+    })
+    .from(appointmentsTable)
+    .where(
+        and(
+            eq(appointmentsTable.clinicId, session.user.clinic.id),
+            gte(appointmentsTable.date, chartStartDate),
+            lte(appointmentsTable.date, chartEndtDate)
+        )
+    )
+    .groupBy(sql<string>`DATE(${appointmentsTable.date})`)
+    .orderBy(sql<string>`DATE(${appointmentsTable.date})`)
+
     return(
         <PageContainer>
             <PageHeader>
@@ -110,6 +131,10 @@ export default async function DashboardPage({searchParams}: DashboardPageProps) 
                  totalPatients={totalPatients.total}
                  totalDoctors={totalDoctors.total}
                 />
+
+                <div className="grid grid-cols-[2.25fr_1fr]">
+                    <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData}/>
+                </div>
             </PageContent>
         </PageContainer>
     )
