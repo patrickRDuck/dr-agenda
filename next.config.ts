@@ -4,11 +4,12 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: '/',
         destination: '/authentication',
+        permanent: true,
       },
     ];
   },
