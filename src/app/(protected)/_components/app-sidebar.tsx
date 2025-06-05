@@ -1,6 +1,6 @@
 "use client"
 
-import { CalendarDays, LayoutDashboard, LogOut, Stethoscope, UsersRound } from "lucide-react"
+import { CalendarDays, Gem, LayoutDashboard, LogOut, Stethoscope, UsersRound } from "lucide-react"
 
 import {
   Sidebar,
@@ -85,6 +85,25 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
+        <SidebarGroup>
+              <SidebarGroupLabel>Outros</SidebarGroupLabel>
+
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton 
+                     asChild 
+                     isActive={pathname === "/settings"}
+                    >
+                      <Link href="/subscription">
+                        <Gem />
+                        Assinatura
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter>
